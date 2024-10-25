@@ -35,4 +35,4 @@ What we really need right now are more contributors and contributions. Please co
 
 We are also looking for more maintainers. If you want to be a maintainer, let me know.
 
-You can also [support me personally](https://github.com/sponsors/sksg), thus indirectly supporting this library in particular.
+You can also support this project by Sponsering the maintainers.
