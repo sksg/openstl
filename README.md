@@ -11,7 +11,17 @@ You can use this library for:
 - As a thrid-party reference
 - Use the included unit-tests and benchmarks for testing and validation
 
-# Structure of the library
+## Progress
+
+Our current progress is:
+
+- [ ] **Containers**
+  - openstl::vector (std::vector)  
+    C++98/C++03 ☐ | C++11 ☐ | C++14 ☐ | C++17 ☐ | C++20 ☐ | C++23 ☐ | C++26 ☐
+- [ ] **Remaining STL**
+  - Well... we are still so early that we do not have a proper target outline yet!
+
+## Structure of the library
 
 - `root`
   - `include`
@@ -25,14 +35,14 @@ You can use this library for:
       - `vector`  # drop-in replacement for `<vector>`
       - ...
 
-# Instructions for use
+## Instructions for use
 
 We do not have our first working implementation. So usage is at your own descretion at the moment.
 
-# How can you support?
+## How can you support?
 
 What we really need right now are more contributors and contributions. Please consider contributing by using pull requests. 
 
 We are also looking for more maintainers. If you want to be a maintainer, let me know.
 
-You can also support this project by Sponsering the maintainers.
+You can also support this project by *sponsering the maintainers*.
