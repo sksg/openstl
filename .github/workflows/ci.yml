@@ -20,10 +20,10 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
 
       - name: Configure CMake
-        run: cmake -S . -B build
+        run: cmake -S . -B build -DBUILD_TESTING=ON
 
       - name: Build
         run: cmake --build build
 
       - name: Run tests
-        run: ctest --test-dir build
+        run: ctest --test-dir build --output-on-failure
