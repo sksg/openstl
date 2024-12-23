@@ -48,6 +48,9 @@ jobs:
           name: build-gcc
           path: build
 
+      - name: Set executable permissions
+        run: chmod -R +x build
+
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
 
@@ -90,6 +93,9 @@ jobs:
         with:
           name: build-clang
           path: build
+
+      - name: Set executable permissions
+        run: chmod -R +x build
 
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
