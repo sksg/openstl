@@ -1,6 +1,5 @@
 project(OpenSTL-tests LANGUAGES CXX)
 
-include(CTest)
 list(APPEND OPENSTL_CXX_VERSIONS "03" "11" "14" "17")
 
 foreach(CXX_VERSION IN LISTS OPENSTL_CXX_VERSIONS)

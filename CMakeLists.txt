@@ -7,4 +7,5 @@ add_library(${PROJECT_NAME} INTERFACE)
 target_include_directories(${PROJECT_NAME} INTERFACE include)
 add_library(OpenSTL::OpenSTL ALIAS ${PROJECT_NAME})
 
+include(CTest)
 add_subdirectory(tests)
