@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build-gcc:
+  build-gcc-linux:
     runs-on: ubuntu-24.04
 
     steps:
@@ -31,12 +31,12 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-gcc
+          name: build-gcc-linux
           path: build
 
-  test-gcc:
+  test-gcc-linux:
     runs-on: ubuntu-24.04
-    needs: build-gcc
+    needs: build-gcc-linux
 
     steps:
       - name: Checkout code
@@ -45,7 +45,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-gcc
+          name: build-gcc-linux
           path: build
 
       - name: Set executable permissions
@@ -54,7 +54,7 @@ jobs:
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
 
-  build-clang:
+  build-clang-linux:
     runs-on: ubuntu-24.04
 
     steps:
@@ -77,12 +77,12 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-clang
+          name: build-clang-linux
           path: build
 
-  test-clang:
+  test-clang-linux:
     runs-on: ubuntu-24.04
-    needs: build-clang
+    needs: build-clang-linux
 
     steps:
       - name: Checkout code
@@ -91,11 +91,97 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-clang
+          name: build-clang-linux
           path: build
 
       - name: Set executable permissions
         run: chmod -R +x build
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+  build-gcc-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Ninja
+        run: choco install ninja
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+
+      - name: Configure CMake
+        run: cmake -S . -B build -G Ninja
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-gcc-windows
+          path: build
+
+  test-gcc-windows:
+    runs-on: windows-latest
+    needs: build-gcc-windows
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-gcc-windows
+          path: build
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+  build-clang-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Ninja and Clang
+        run: |
+          choco install ninja
+          choco install llvm
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+
+      - name: Configure CMake
+        run: cmake -S . -B build -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-clang-windows
+          path: build
+
+  test-clang-windows:
+    runs-on: windows-latest
+    needs: build-clang-windows
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-clang-windows
+          path: build
 
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
